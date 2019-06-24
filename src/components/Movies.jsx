@@ -11,9 +11,12 @@ import {
     ListItemAvatar,
     Avatar,
     ListItemText,
+    ListItemSecondaryAction,
+    IconButton,
 } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import MovieDetails from './MovieDetails'
+import ToggleStarredButton from './ToggleStarredButton'
 
 const Movies = ({
     search,
@@ -24,6 +27,7 @@ const Movies = ({
     movieSelected,
     loadingMovies,
     loadingMovie,
+    onMovieToggleStarredAction,
 }) => {
     return (
         <Container>
@@ -63,6 +67,16 @@ const Movies = ({
                                                 )}
                                             </ListItemAvatar>
                                             <ListItemText primary={m.title} />
+                                            <ListItemSecondaryAction>
+                                                <ToggleStarredButton
+                                                    starred={m.starred}
+                                                    onClick={() =>
+                                                        onMovieToggleStarredAction(
+                                                            m
+                                                        )
+                                                    }
+                                                />
+                                            </ListItemSecondaryAction>
                                         </ListItem>
                                     ))}
                                 </List>
@@ -77,7 +91,14 @@ const Movies = ({
                                 <CircularProgress />
                             </Box>
                         )}
-                        {movie && <MovieDetails movie={movie} />}
+                        {movie && (
+                            <MovieDetails
+                                movie={movie}
+                                onMovieToggleStarredAction={
+                                    onMovieToggleStarredAction
+                                }
+                            />
+                        )}
                     </PaperStyled>
                 </Grid>
             </Grid>

@@ -6,11 +6,18 @@ const resolvers = {
             })
             return results
         },
-        movie: (parent, args, { dataSources }) => {
+        movie: (_parent, args, { dataSources }) => {
             return dataSources.moviesAPI.getMoviedDetails(args.id)
         },
     },
+    Mutation: {
+        toggleStarredMovie: (_parent, { id }, { services, dataSources }) => {
+            services.movies.toggleStarredMove(id)
+            return dataSources.moviesAPI.getMoviedDetails(id)
+        },
+    },
     Movie: {
+        id: movie => movie.id.toString(),
         img: parent => parent.poster_path,
         description: parent => parent.overview,
         genres: async (parent, _args, { dataSources }) => {
@@ -32,6 +39,9 @@ const resolvers = {
                 parent.id
             )
             return atMost(5, results)
+        },
+        starred: (movie, _args, { services }) => {
+            return services.movies.isMovieStarred(movie.id)
         },
     },
     Image: {

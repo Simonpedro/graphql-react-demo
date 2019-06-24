@@ -1,5 +1,5 @@
 import React from 'react'
-import { useQuery } from 'react-apollo-hooks'
+import { useQuery, useMutation } from 'react-apollo-hooks'
 import { gql } from 'apollo-boost'
 import Movies from './Movies'
 import useDebounce from '../hooks/useDebounce'
@@ -34,6 +34,15 @@ const MoviesContainer = () => {
     )
     const movie = movieQueryData && movieQueryData.movie
 
+    // Mutations
+    const toggleStarred = useMutation(TOGGLE_STARRED_MOVIE)
+
+    // Handlers
+    const handleMovieToggleStarredAction = movie =>
+        toggleStarred({
+            variables: { id: movie.id },
+        })
+
     return (
         <Movies
             search={search}
@@ -44,6 +53,7 @@ const MoviesContainer = () => {
             movie={movie}
             movieSelected={movieSelected}
             onMovieSelected={setMovieSelected}
+            onMovieToggleStarredAction={handleMovieToggleStarredAction}
         />
     )
 }
@@ -55,6 +65,7 @@ const SEARCH_QUERY = gql`
         movies(search: $search) {
             id
             title
+            starred
             img {
                 url(width: W92)
             }
@@ -67,6 +78,7 @@ const MOVIE_QUERY = gql`
         movie(id: $id) {
             id
             title
+            starred
             description
             img {
                 url(width: W185)
@@ -88,6 +100,15 @@ const MOVIE_QUERY = gql`
                     url
                 }
             }
+        }
+    }
+`
+
+const TOGGLE_STARRED_MOVIE = gql`
+    mutation ToggleStarredMovie($id: String!) {
+        toggleStarredMovie(id: $id) {
+            id
+            starred
         }
     }
 `

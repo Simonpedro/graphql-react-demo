@@ -12,8 +12,9 @@ import { styled } from '@material-ui/styles'
 import { ChevronLeft, ChevronRight } from '@material-ui/icons'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
+import ToggleStarredButton from './ToggleStarredButton'
 
-const MovieDetails = ({ movie }) => {
+const MovieDetails = ({ movie, onMovieToggleStarredAction }) => {
     return (
         <Grid container direction="column">
             <Grid container>
@@ -31,7 +32,16 @@ const MovieDetails = ({ movie }) => {
                 </Grid>
                 <Grid item xs={9}>
                     <Box px={2} textAlign="left">
-                        <Title>{movie.title}</Title>
+                        <Box display="flex" alignItems="center">
+                            <Title>{movie.title}</Title>
+                            <ToggleStarredButton
+                                starred={movie.starred}
+                                onClick={() =>
+                                    onMovieToggleStarredAction(movie)
+                                }
+                            />
+                        </Box>
+
                         <Box display="flex" flexWrap="wrap" py={1}>
                             {movie.genres.map(g => (
                                 <Chip

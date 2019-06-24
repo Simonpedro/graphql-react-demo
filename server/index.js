@@ -2,7 +2,7 @@ const { ApolloServer } = require('apollo-server')
 const resolvers = require('./resolvers')
 const typeDefs = require('./typeDefs')
 const MoviesAPI = require('./MoviesApi')
-const Mapper = require('./Mapper')
+const MoviesService = require('./MoviesService')
 
 const server = new ApolloServer({
     typeDefs,
@@ -11,7 +11,9 @@ const server = new ApolloServer({
         moviesAPI: new MoviesAPI(),
     }),
     context: ({ req }) => {
-        req.mapper = new Mapper()
+        req.services = {
+            movies: new MoviesService(),
+        }
         return req
     },
 })

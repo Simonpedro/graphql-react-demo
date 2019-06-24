@@ -2,7 +2,20 @@ const { gql } = require('apollo-server')
 module.exports = gql`
     type Query {
         movies(search: String!): [Movie!]!
+
         movie(id: String!): Movie
+    }
+
+    type Mutation {
+        """
+        Toggle movie starred state
+        """
+        toggleStarredMovie(
+            """
+            The movie's id
+            """
+            id: String
+        ): Movie
     }
 
     type Movie {
@@ -13,6 +26,7 @@ module.exports = gql`
         genres: [Genre!]!
         similarMovies: [Movie!]!
         reviews: [Review!]!
+        starred: Boolean!
     }
 
     type Genre {
