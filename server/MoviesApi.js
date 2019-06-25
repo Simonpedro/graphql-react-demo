@@ -21,7 +21,7 @@ class MoviesAPI extends RESTDataSource {
         return this.get('/genre/movie/list')
     }
 
-    getMoviedDetails(id) {
+    getMovieDetails(id) {
         return this.get(`/movie/${id}`)
     }
 

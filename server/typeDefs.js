@@ -4,6 +4,8 @@ module.exports = gql`
         movies(search: String!): [Movie!]!
 
         movie(id: String!): Movie
+
+        starredMovies: [Movie!]!
     }
 
     type Mutation {
@@ -16,6 +18,10 @@ module.exports = gql`
             """
             id: String
         ): Movie
+    }
+
+    type Subscription {
+        starredMovies: [Movie!]!
     }
 
     type Movie {

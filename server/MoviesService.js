@@ -1,6 +1,7 @@
-module.exports = class MoviesService {
-    constructor() {
+class MoviesService {
+    constructor(moviesAPI) {
         this.db = require('./db')
+        this.moviesAPI = moviesAPI
     }
 
     isMovieStarred(id) {
@@ -37,4 +38,15 @@ module.exports = class MoviesService {
             this.starMovie(id)
         }
     }
+
+    getStarredMoviesIds() {
+        return this.db.get('starredMoviesIds').value()
+    }
+
+    getStarredMovies() {
+        const ids = this.getStarredMoviesIds()
+        return Promise.all(ids.map(id => this.moviesAPI.getMovieDetails(id)))
+    }
 }
+
+module.exports = MoviesService
