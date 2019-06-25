@@ -3,7 +3,7 @@ module.exports = gql`
     type Query {
         movies(search: String!): [Movie!]!
 
-        movie(id: String!): Movie
+        movie(id: ID!): Movie
 
         starredMovies: [Movie!]!
     }
@@ -25,7 +25,7 @@ module.exports = gql`
     }
 
     type Movie {
-        id: String!
+        id: ID!
         title: String!
         description: String
         img: Image
@@ -36,12 +36,12 @@ module.exports = gql`
     }
 
     type Genre {
-        id: String!
+        id: ID!
         name: String!
     }
 
     type Review {
-        id: String!
+        id: ID!
         author: String!
         content: String!
         url: String!

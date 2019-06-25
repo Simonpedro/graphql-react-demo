@@ -103,7 +103,7 @@ const SEARCH_QUERY = gql`
 `
 
 const MOVIE_QUERY = gql`
-    query MovieQuery($id: String!) {
+    query MovieQuery($id: ID!) {
         movie(id: $id) {
             id
             title
