@@ -107,7 +107,7 @@ const Movies = ({
             {starredMovies && starredMovies.length > 0 && (
                 <Box width={1} mt="1em">
                     <PaperStyledRow>
-                        <Title>Starred movies</Title>
+                        <Title>Películas favoritas</Title>
                         <Box
                             display="flex"
                             flexDirection="row"
