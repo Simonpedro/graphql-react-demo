@@ -12,11 +12,12 @@ import {
     Avatar,
     ListItemText,
     ListItemSecondaryAction,
-    IconButton,
+    Chip,
 } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import MovieDetails from './MovieDetails'
 import ToggleStarredButton from './ToggleStarredButton'
+import Title from './Title'
 
 const Movies = ({
     search,
@@ -28,12 +29,13 @@ const Movies = ({
     loadingMovies,
     loadingMovie,
     onMovieToggleStarredAction,
+    starredMovies,
 }) => {
     return (
         <Container>
             <Grid container spacing={5}>
                 <Grid item xs={6}>
-                    <PaperStyled>
+                    <PaperStyledColumn>
                         <Box mb={1}>
                             <TextField
                                 fullWidth
@@ -82,10 +84,10 @@ const Movies = ({
                                 </List>
                             </BoxStyled>
                         )}
-                    </PaperStyled>
+                    </PaperStyledColumn>
                 </Grid>
                 <Grid item xs={6}>
-                    <PaperStyled>
+                    <PaperStyledColumn>
                         {loadingMovie && (
                             <Box my={5}>
                                 <CircularProgress />
@@ -99,22 +101,61 @@ const Movies = ({
                                 }
                             />
                         )}
-                    </PaperStyled>
+                    </PaperStyledColumn>
                 </Grid>
             </Grid>
+            {starredMovies && starredMovies.length > 0 && (
+                <Box width={1} mt="1em">
+                    <PaperStyledRow>
+                        <Title>Starred movies</Title>
+                        <Box
+                            display="flex"
+                            flexDirection="row"
+                            justifyContent="center"
+                            alignItems="center"
+                            flexWrap="wrap"
+                        >
+                            {starredMovies.map(starredMovie => (
+                                <Box p={0.5} key={starredMovie.id}>
+                                    <Chip
+                                        onClick={() =>
+                                            onMovieSelected(starredMovie)
+                                        }
+                                        avatar={
+                                            starredMovie.img ? (
+                                                <Avatar
+                                                    src={starredMovie.img.url}
+                                                />
+                                            ) : (
+                                                undefined
+                                            )
+                                        }
+                                        label={starredMovie.title}
+                                    />
+                                </Box>
+                            ))}
+                        </Box>
+                    </PaperStyledRow>
+                </Box>
+            )}
         </Container>
     )
 }
 
 export default Movies
 
-const PaperStyled = styled(Paper)({
-    height: '70vh',
+const PaperStyledBase = styled(Paper)({
     padding: '1em 2em',
-    display: 'flex',
-    flexDirection: 'column',
     overflowY: 'auto',
 })
+
+const PaperStyledColumn = styled(PaperStyledBase)({
+    display: 'flex',
+    flexDirection: 'column',
+    height: '70vh',
+})
+
+const PaperStyledRow = styled(PaperStyledBase)({})
 
 const BoxStyled = styled(Box)({
     overflowY: 'scroll',

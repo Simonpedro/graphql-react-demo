@@ -13,6 +13,7 @@ import { ChevronLeft, ChevronRight } from '@material-ui/icons'
 import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css'
 import ToggleStarredButton from './ToggleStarredButton'
+import Title from './Title'
 
 const MovieDetails = ({ movie, onMovieToggleStarredAction }) => {
     return (
@@ -83,8 +84,8 @@ const MovieDetails = ({ movie, onMovieToggleStarredAction }) => {
                 <Title>Reviews</Title>
                 {movie.reviews && movie.reviews.length > 0 && (
                     <Carousel
-                        arrowLeft={<ChevronLeft />}
-                        arrowRight={<ChevronRight />}
+                        arrowLeft={<ChevronLeft role="button" />}
+                        arrowRight={<ChevronRight role="button" />}
                         addArrowClickHandler
                     >
                         {movie.reviews.map(review => (
@@ -102,10 +103,6 @@ const MovieDetails = ({ movie, onMovieToggleStarredAction }) => {
 }
 
 export default MovieDetails
-
-const Title = styled(Typography)({
-    fontWeight: 'bold',
-})
 
 const Description = styled(Typography)({
     fontSize: '0.8em',
