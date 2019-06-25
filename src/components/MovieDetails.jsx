@@ -45,7 +45,7 @@ const MovieDetails = ({ movie, onMovieToggleStarredAction }) => {
 
                         <Box display="flex" flexWrap="wrap" py={1}>
                             {movie.genres.map(g => (
-                                <Box key={g.id} p={0.3}>
+                                <Box key={g.id} px={0.3}>
                                     <Chip
                                         label={g.name}
                                         size="small"
