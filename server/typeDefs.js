@@ -20,10 +20,6 @@ module.exports = gql`
         ): Movie
     }
 
-    type Subscription {
-        starredMovies: [Movie!]!
-    }
-
     type Movie {
         id: ID!
         title: String!

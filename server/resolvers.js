@@ -1,14 +1,4 @@
-const MOVIE_STARRED_TOGGLED = 'MOVIE_STARRED_TOGGLED'
-
 const resolvers = {
-    Subscription: {
-        starredMovies: {
-            resolve: (_payload, _args, { services }) =>
-                services.movies.getStarredMovies(),
-            subscribe: (_parent, _args, { services }) =>
-                services.pubsub.asyncIterator([MOVIE_STARRED_TOGGLED]),
-        },
-    },
     Query: {
         movies: async (_parent, args, { services }) => {
             const { results } = await services.moviesAPI.search({
@@ -25,7 +15,6 @@ const resolvers = {
     Mutation: {
         toggleStarredMovie: (_parent, { id }, { services }) => {
             services.movies.toggleStarredMove(id)
-            services.pubsub.publish(MOVIE_STARRED_TOGGLED)
             return services.moviesAPI.getMovieDetails(id)
         },
     },

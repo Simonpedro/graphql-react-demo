@@ -12,12 +12,10 @@ import {
     Avatar,
     ListItemText,
     ListItemSecondaryAction,
-    Chip,
 } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import MovieDetails from './MovieDetails'
 import ToggleStarredButton from './ToggleStarredButton'
-import Title from './Title'
 
 const Movies = ({
     search,
@@ -29,7 +27,6 @@ const Movies = ({
     loadingMovies,
     loadingMovie,
     onMovieToggleStarredAction,
-    starredMovies,
 }) => {
     return (
         <Container>
@@ -105,40 +102,6 @@ const Movies = ({
                     </PaperStyledColumn>
                 </Grid>
             </Grid>
-            {starredMovies && starredMovies.length > 0 && (
-                <Box width={1} mt="1em">
-                    <PaperStyledRow>
-                        <Title>Películas favoritas</Title>
-                        <Box
-                            display="flex"
-                            flexDirection="row"
-                            justifyContent="center"
-                            alignItems="center"
-                            flexWrap="wrap"
-                        >
-                            {starredMovies.map(starredMovie => (
-                                <Box p={0.5} key={starredMovie.id}>
-                                    <Chip
-                                        onClick={() =>
-                                            onMovieSelected(starredMovie)
-                                        }
-                                        avatar={
-                                            starredMovie.img ? (
-                                                <Avatar
-                                                    src={starredMovie.img.url}
-                                                />
-                                            ) : (
-                                                undefined
-                                            )
-                                        }
-                                        label={starredMovie.title}
-                                    />
-                                </Box>
-                            ))}
-                        </Box>
-                    </PaperStyledRow>
-                </Box>
-            )}
         </Container>
     )
 }
@@ -155,8 +118,6 @@ const PaperStyledColumn = styled(PaperStyledBase)({
     flexDirection: 'column',
     height: '70vh',
 })
-
-const PaperStyledRow = styled(PaperStyledBase)({})
 
 const BoxStyled = styled(Box)({
     overflowY: 'scroll',
