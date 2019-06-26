@@ -7,7 +7,6 @@ import {
     GridList,
     GridListTile,
     GridListTileBar,
-    Button,
 } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import { ChevronLeft, ChevronRight } from '@material-ui/icons'
