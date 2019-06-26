@@ -7,6 +7,7 @@ import {
     GridList,
     GridListTile,
     GridListTileBar,
+    Button,
 } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import { ChevronLeft, ChevronRight } from '@material-ui/icons'
@@ -15,7 +16,11 @@ import '@brainhubeu/react-carousel/lib/style.css'
 import ToggleStarredButton from './ToggleStarredButton'
 import Title from './Title'
 
-const MovieDetails = ({ movie, onMovieToggleStarredAction }) => {
+const MovieDetails = ({
+    movie,
+    onMovieSelected,
+    onMovieToggleStarredAction,
+}) => {
     return (
         <Grid container direction="column">
             <Grid container>
@@ -70,7 +75,13 @@ const MovieDetails = ({ movie, onMovieToggleStarredAction }) => {
                                         alt={movie.title}
                                     />
                                 )}
-                                <GridListTileBar title={movie.title} />
+                                <GridListTileBar
+                                    title={
+                                        <TextButton>{movie.title}</TextButton>
+                                    }
+                                    onClick={() => onMovieSelected(movie)}
+                                    role="button"
+                                />
                             </GridListTileStyled>
                         ))}
                     </GridListStyled>
@@ -105,6 +116,20 @@ const MovieDetails = ({ movie, onMovieToggleStarredAction }) => {
 
 export default MovieDetails
 
+const Review = ({ review }) => {
+    const reviewPart = review.content.slice(0, 250)
+    return (
+        <div>
+            <Blockquote>
+                "{`${reviewPart}${review.content.length > 250 ? '...' : ''}`}"
+            </Blockquote>
+            <Box textAlign="right">
+                <strong>{review.author}</strong>
+            </Box>
+        </div>
+    )
+}
+
 const Description = styled(Typography)({
     fontSize: '0.8em',
     color: '#868686',
@@ -122,16 +147,15 @@ const Blockquote = styled('blockquote')({
     fontSize: '0.9em',
     fontStyle: 'italic',
 })
-const Review = ({ review }) => {
-    const reviewPart = review.content.slice(0, 250)
-    return (
-        <div>
-            <Blockquote>
-                "{`${reviewPart}${review.content.length > 250 ? '...' : ''}`}"
-            </Blockquote>
-            <Box textAlign="right">
-                <strong>{review.author}</strong>
-            </Box>
-        </div>
-    )
-}
+
+const TextButton = styled('button')({
+    color: '#FFF',
+    background: 'none',
+    border: 'none',
+    fontWeight: 'bold',
+    outline: 'none',
+    cursor: 'pointer',
+    [`&:hover`]: {
+        textShadow: '0 0 7px #fff;',
+    },
+})

@@ -96,6 +96,7 @@ const Movies = ({
                         {movie && (
                             <MovieDetails
                                 movie={movie}
+                                onMovieSelected={onMovieSelected}
                                 onMovieToggleStarredAction={
                                     onMovieToggleStarredAction
                                 }
