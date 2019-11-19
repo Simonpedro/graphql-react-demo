@@ -27,6 +27,12 @@
         "subscriptions-transport-ws": "^0.9.16",
         "url": "^0.11.0"
     },
+    "devDependencies": {
+        "@testing-library/react": "^9.3.2",
+        "enzyme": "^3.10.0",
+        "enzyme-adapter-react-16": "^1.15.1",
+        "prettier": "1.18.2"
+    },
     "scripts": {
         "start:server": "nodemon server/index.js",
         "start": "react-scripts start",
@@ -48,8 +54,5 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "devDependencies": {
-        "prettier": "1.18.2"
     }
 }
