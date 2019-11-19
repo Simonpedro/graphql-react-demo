@@ -3,30 +3,20 @@ import Container from '@material-ui/core/Container'
 import {
     Grid,
     Paper,
-    TextField,
     CircularProgress,
     Box,
-    List,
-    ListItem,
-    ListItemAvatar,
     Avatar,
-    ListItemText,
-    ListItemSecondaryAction,
     Chip,
 } from '@material-ui/core'
 import { styled } from '@material-ui/styles'
 import MovieDetails from './MovieDetails'
-import ToggleStarredButton from './ToggleStarredButton'
 import Title from './Title'
+import Autocomplete from './Autocomplete/Autocomplete'
 
 const Movies = ({
-    search,
-    onChangeSearch,
-    movies,
     onMovieSelected,
     movie,
     movieSelected,
-    loadingMovies,
     loadingMovie,
     onMovieToggleStarredAction,
     starredMovies,
@@ -36,54 +26,11 @@ const Movies = ({
             <Grid container spacing={5}>
                 <Grid item xs={6}>
                     <PaperStyledColumn>
-                        <Box mb={1}>
-                            <TextField
-                                fullWidth
-                                label="Título"
-                                value={search}
-                                onChange={e => onChangeSearch(e.target.value)}
-                            />
-                        </Box>
-
-                        {loadingMovies && (
-                            <Box my={5}>
-                                <CircularProgress />
-                            </Box>
-                        )}
-                        {movies && (
-                            <BoxStyled flexGrow={1}>
-                                <List>
-                                    {movies.map(m => (
-                                        <ListItem
-                                            key={m.id}
-                                            button
-                                            onClick={() => onMovieSelected(m)}
-                                            selected={
-                                                movieSelected &&
-                                                movieSelected.id === m.id
-                                            }
-                                        >
-                                            <ListItemAvatar>
-                                                {m.img && m.img.url && (
-                                                    <Avatar src={m.img.url} />
-                                                )}
-                                            </ListItemAvatar>
-                                            <ListItemText primary={m.title} />
-                                            <ListItemSecondaryAction>
-                                                <ToggleStarredButton
-                                                    starred={m.starred}
-                                                    onClick={() =>
-                                                        onMovieToggleStarredAction(
-                                                            m
-                                                        )
-                                                    }
-                                                />
-                                            </ListItemSecondaryAction>
-                                        </ListItem>
-                                    ))}
-                                </List>
-                            </BoxStyled>
-                        )}
+                        <Autocomplete
+                            onSelected={onMovieSelected}
+                            selectedId={movieSelected && movieSelected.id}
+                            onStarred={onMovieToggleStarredAction}
+                        />
                     </PaperStyledColumn>
                 </Grid>
                 <Grid item xs={6}>
