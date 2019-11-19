@@ -25,6 +25,7 @@ const Autocomplete = ({ onSelected, selectedId, onStarred }) => {
         <>
             <Box mb={1}>
                 <TextField
+                    id="title"
                     fullWidth
                     label="Título"
                     value={search}
@@ -34,33 +35,41 @@ const Autocomplete = ({ onSelected, selectedId, onStarred }) => {
 
             {loading && (
                 <Box my={5}>
-                    <CircularProgress />
+                    <CircularProgress data-testid="loading" />
                 </Box>
             )}
             {movies && (
-                <BoxStyled flexGrow={1}>
+                <BoxStyled flexGrow={1} data-testid="movies-list">
                     <List>
-                        {movies.map(m => (
-                            <ListItem
-                                key={m.id}
-                                button
-                                onClick={() => onSelected(m)}
-                                selected={selectedId && selectedId === m.id}
-                            >
-                                <ListItemAvatar>
-                                    {m.img && m.img.url && (
-                                        <Avatar src={m.img.url} />
-                                    )}
-                                </ListItemAvatar>
-                                <ListItemText primary={m.title} />
-                                <ListItemSecondaryAction>
-                                    <ToggleStarredButton
-                                        starred={m.starred}
+                        {movies.map(m => {
+                            const selected = selectedId && selectedId === m.id
+                            return (
+                                <ListItem
+                                    key={m.id}
+                                    button
+                                    onClick={() => onSelected(m)}
+                                    selected={selectedId && selectedId === m.id}
+                                    data-testid={`item-${m.id}`}
+                                    data-selected={selected ? 'true' : 'false'}
+                                    data-starred={m.starred ? 'true' : 'false'}
+                                >
+                                    <ListItemAvatar>
+                                        {m.img && m.img.url && (
+                                            <Avatar src={m.img.url} />
+                                        )}
+                                    </ListItemAvatar>
+                                    <ListItemText primary={m.title} />
+                                    <ListItemSecondaryAction
                                         onClick={() => onStarred(m)}
-                                    />
-                                </ListItemSecondaryAction>
-                            </ListItem>
-                        ))}
+                                        title={`Mark ${m.title} as starred`}
+                                    >
+                                        <ToggleStarredButton
+                                            starred={m.starred}
+                                        />
+                                    </ListItemSecondaryAction>
+                                </ListItem>
+                            )
+                        })}
                     </List>
                 </BoxStyled>
             )}
