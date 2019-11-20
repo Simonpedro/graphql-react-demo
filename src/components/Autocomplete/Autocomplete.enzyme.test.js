@@ -1,12 +1,16 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
-import { CircularProgress, ListItem } from '@material-ui/core'
-
+import {
+    CircularProgress,
+    ListItem,
+    ListItemSecondaryAction,
+} from '@material-ui/core'
 import Autocomplete from './Autocomplete'
 import useMovies from '../../hooks/useMovies'
-import ToggleStarredButton from '../ToggleStarredButton'
+import useDebounce from '../../hooks/useDebounce'
 
 jest.mock('../../hooks/useMovies')
+jest.mock('../../hooks/useDebounce')
 
 const fakeMovies = [
     {
@@ -94,6 +98,7 @@ describe('Autocomplete', () => {
         expect(wrapper.find(ListItem).length).toBe(fakeMovies.length)
     })
     it('shows just the matching options for arbitrary search ', () => {
+        useDebounce.mockImplementation(value => value)
         const wrapper = mount(
             <Autocomplete onSelected={() => {}} onStarred={() => {}} />
         )
@@ -111,6 +116,7 @@ describe('Autocomplete', () => {
         ).toBe(false)
     })
     it('does not show options for non-matching search ', () => {
+        useDebounce.mockImplementation(value => value)
         const wrapper = mount(
             <Autocomplete onSelected={() => {}} onStarred={() => {}} />
         )
@@ -146,7 +152,7 @@ describe('Autocomplete', () => {
         )
 
         wrapper
-            .find(ToggleStarredButton)
+            .find(ListItemSecondaryAction)
             .first()
             .props()
             .onClick()
