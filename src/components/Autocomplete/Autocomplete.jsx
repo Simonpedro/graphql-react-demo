@@ -64,6 +64,7 @@ const Autocomplete = ({ onSelected, selectedId, onStarred }) => {
                                         title={`Mark ${m.title} as starred`}
                                     >
                                         <ToggleStarredButton
+                                            data-testid={`toggle-starred-button-${m.id}`}
                                             starred={m.starred}
                                         />
                                     </ListItemSecondaryAction>

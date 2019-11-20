@@ -66,6 +66,7 @@ const Movies = ({
                             {starredMovies.map(starredMovie => (
                                 <Box p={0.5} key={starredMovie.id}>
                                     <Chip
+                                        data-testid={`chip-${starredMovie.id}`}
                                         onClick={() =>
                                             onMovieSelected(starredMovie)
                                         }
@@ -75,8 +76,8 @@ const Movies = ({
                                                     src={starredMovie.img.url}
                                                 />
                                             ) : (
-                                                undefined
-                                            )
+                                                    undefined
+                                                )
                                         }
                                         label={starredMovie.title}
                                     />

@@ -30,6 +30,7 @@
     "devDependencies": {
         "@testing-library/react": "^9.3.2",
         "@types/jest": "^24.0.23",
+        "cypress": "^3.6.1",
         "enzyme": "^3.10.0",
         "enzyme-adapter-react-16": "^1.15.1",
         "prettier": "1.18.2"
@@ -39,7 +40,8 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "cypress:open": "cypress open"
     },
     "eslintConfig": {
         "extends": "react-app"

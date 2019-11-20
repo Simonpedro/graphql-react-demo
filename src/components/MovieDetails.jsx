@@ -38,7 +38,7 @@ const MovieDetails = ({
                 <Grid item xs={9}>
                     <Box px={2} textAlign="left">
                         <Box display="flex" alignItems="center">
-                            <Title>{movie.title}</Title>
+                            <Title data-testid="movie-title">{movie.title}</Title>
                             <ToggleStarredButton
                                 starred={movie.starred}
                                 onClick={() =>
