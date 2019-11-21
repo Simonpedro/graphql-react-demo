@@ -1,3 +1,5 @@
+const atMost = require('./util/atMost')
+
 const MOVIE_STARRED_TOGGLED = 'MOVIE_STARRED_TOGGLED'
 
 const resolvers = {
@@ -64,12 +66,3 @@ const resolvers = {
 }
 
 module.exports = resolvers
-
-/**
- * Return at most {quantity} elements from array
- *
- * @param {number} quantity
- * @param {array} array
- */
-const atMost = (quantity, array) =>
-    array.slice(0, Math.min(quantity, array.length))
