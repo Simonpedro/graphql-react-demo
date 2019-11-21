@@ -1,11 +1,9 @@
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { render, fireEvent, act } from '@testing-library/react'
 import Autocomplete from './Autocomplete'
 import useMovies from '../../hooks/useMovies'
-import useDebounce from '../../hooks/useDebounce'
 
 jest.mock('../../hooks/useMovies')
-jest.mock('../../hooks/useDebounce')
 
 describe('Autocomplete', () => {
     beforeEach(() => {
@@ -56,7 +54,7 @@ describe('Autocomplete', () => {
     })
 
     it('shows just the matching options for arbitrary search ', () => {
-        useDebounce.mockImplementation(value => value)
+        jest.useFakeTimers()
         useMovies.mockImplementation(search => ({
             movies: filterMovies(fakeMovies, search),
             loading: false,
@@ -69,6 +67,10 @@ describe('Autocomplete', () => {
 
         fireEvent.change(input, { target: { value: search } })
 
+        act(() => {
+            jest.runAllTimers()
+        })
+
         const moviesThatShouldExist = filterMovies(fakeMovies, search)
         const moviesThatShouldNotExist = diff(fakeMovies, moviesThatShouldExist)
         moviesThatShouldExist.forEach(m =>
@@ -80,7 +82,7 @@ describe('Autocomplete', () => {
     })
 
     it('doest NOT show options for non-matching search ', () => {
-        useDebounce.mockImplementation(value => value)
+        jest.useFakeTimers()
         useMovies.mockImplementation(search => ({
             movies: filterMovies(fakeMovies, search),
             loading: false,
@@ -92,6 +94,10 @@ describe('Autocomplete', () => {
         const search = 'React Rosario'
 
         fireEvent.change(input, { target: { value: search } })
+
+        act(() => {
+            jest.runAllTimers()
+        })
 
         const moviesThatShouldExist = filterMovies(fakeMovies, search)
         const moviesThatShouldNotExist = diff(fakeMovies, moviesThatShouldExist)
