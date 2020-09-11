@@ -17,7 +17,7 @@
         "express": "^4.17.1",
         "graphql": "^14.3.1",
         "lowdb": "^1.0.0",
-        "node-fetch": "^2.6.0",
+        "node-fetch": "^2.6.1",
         "nodemon": "^1.19.1",
         "react": "^16.8.6",
         "react-apollo": "^2.5.6",
